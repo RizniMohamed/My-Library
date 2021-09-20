@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Theme_BG"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/riz"
+                    app:layout_constraintBottom_toTopOf="@+id/txtAppName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/aladin"
+                    android:text="@string/my_library"
+                    android:textColor="@color/Theme_font_1"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnABooks"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+
+                <Button
+                    android:id="@+id/btnABooks"
+                    android:layout_width="220dp"
+                    android:textColor="@color/Theme_font_2"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="@color/Theme_FG"
+                    android:text="@string/all_books"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAppName" />
+
+                <Button
+                    android:id="@+id/btnCRBooks"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/Theme_font_2"
+                    android:backgroundTint="@color/Theme_FG"
+                    android:text="@string/currently_reading_books"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnABooks" />
+
+                <Button
+                    android:id="@+id/btnARBooks"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Theme_font_2"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/Theme_FG"
+                    android:text="@string/already_read_books"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnCRBooks" />
+
+                <Button
+                    android:id="@+id/btnWishlist"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/Theme_FG"
+                    android:text="@string/wishlist"
+                    android:textAllCaps="false"
+                    android:textColor="@color/Theme_font_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnARBooks" />
+
+                <Button
+                    android:id="@+id/btnFavourite"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/Theme_FG"
+                    android:text="@string/favourite"
+                    android:textColor="@color/Theme_font_2"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnWishlist" />
+
+                <Button
+                    android:id="@+id/btnAbout"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/Theme_FG"
+                    android:text="@string/about"
+                    android:textColor="@color/Theme_font_2"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnFavourite" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/txtLicence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/txtlicence"
+        android:textColor="@color/Theme_font_1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
+
