@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
     <ScrollView
+        android:id="@+id/RLMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
@@ -51,12 +52,12 @@
                 <Button
                     android:id="@+id/btnABooks"
                     android:layout_width="220dp"
-                    android:textColor="@color/Theme_font_2"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/Theme_FG"
                     android:text="@string/all_books"
                     android:textAllCaps="false"
+                    android:textColor="@color/Theme_font_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtAppName" />
@@ -66,10 +67,10 @@
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/Theme_font_2"
                     android:backgroundTint="@color/Theme_FG"
                     android:text="@string/currently_reading_books"
                     android:textAllCaps="false"
+                    android:textColor="@color/Theme_font_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnABooks" />
@@ -78,11 +79,11 @@
                     android:id="@+id/btnARBooks"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/Theme_font_2"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/Theme_FG"
                     android:text="@string/already_read_books"
                     android:textAllCaps="false"
+                    android:textColor="@color/Theme_font_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnCRBooks" />
@@ -107,8 +108,8 @@
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/Theme_FG"
                     android:text="@string/favourite"
-                    android:textColor="@color/Theme_font_2"
                     android:textAllCaps="false"
+                    android:textColor="@color/Theme_font_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnWishlist" />
@@ -120,8 +121,8 @@
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/Theme_FG"
                     android:text="@string/about"
-                    android:textColor="@color/Theme_font_2"
                     android:textAllCaps="true"
+                    android:textColor="@color/Theme_font_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"

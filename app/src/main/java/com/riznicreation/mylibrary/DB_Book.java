@@ -99,7 +99,7 @@ public class DB_Book {
         return "{\"Books\" : [\n" +
                 "  {\n" +
                 "    \"title\": \"Unlocking Android\",\n" +
-                "    \"buyLink\": \"https://carbon.now.sh/\",\n" +
+                "    \"buyLink\": \"https://translate.google.com/\",\n" +
                 "    \"isbn\": \"1933988673\",\n" +
                 "    \"pageCount\": 416,\n" +
                 "    \"publishedDate\": { \"$date\": \"2009-04-01T00:00:00.000-0700\" },\n" +
@@ -112,7 +112,7 @@ public class DB_Book {
                 "  },\n" +
                 "  {\n" +
                 "    \"title\": \"Android in Action, Second Edition\",\n" +
-                "    \"buyLink\": \"https://carbon.now.sh/\",\n" +
+                "    \"buyLink\": \"https://translate.google.com/\",\n" +
                 "    \"isbn\": \"1935182722\",\n" +
                 "    \"pageCount\": 592,\n" +
                 "    \"publishedDate\": { \"$date\": \"2011-01-14T00:00:00.000-0800\" },\n" +

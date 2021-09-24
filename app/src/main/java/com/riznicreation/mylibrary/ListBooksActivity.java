@@ -1,8 +1,11 @@
 package com.riznicreation.mylibrary;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ public class ListBooksActivity extends AppCompatActivity {
 
     private RecyclerView rvBook;
     private BookRecViewAdaptor adaptor;
+    private RelativeLayout RLMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,26 @@ public class ListBooksActivity extends AppCompatActivity {
 
         rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 
+        handleNotchScreen();
 
+    }
+
+    private void handleNotchScreen() {
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        if (statusBarHeight > convertDpToPixel(24)) {
+            RLMain = findViewById(R.id.RLMain);
+            RLMain.setPadding(0, statusBarHeight, 0, 0);
+        }
+    }
+
+    private int convertDpToPixel ( float dp){
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return Math.round(px);
     }
 
 }

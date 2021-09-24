@@ -1,15 +1,19 @@
 package com.riznicreation.mylibrary;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
@@ -24,6 +28,7 @@ public class BookActivity extends AppCompatActivity{
     private FloatingActionMenu faMenu;
     private FloatingActionButton btnCRBooks, btnWishlist, btnARBooks, btnFavourite;
     private Button buyNow;
+    private ScrollView SVMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,7 @@ public class BookActivity extends AppCompatActivity{
         setContentView(R.layout.activity_book);
 
         initViews();
+        handleNotchScreen();
 
         Intent intent = getIntent();
         if(intent != null) {
@@ -190,5 +196,23 @@ public class BookActivity extends AppCompatActivity{
         btnARBooks = findViewById(R.id.btnARBooks);
         btnFavourite = findViewById(R.id.btnFavourite);
         buyNow = findViewById(R.id.btnBuyNow);
+    }
+
+    private void handleNotchScreen() {
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        if (statusBarHeight > convertDpToPixel(24)) {
+            SVMain = findViewById(R.id.SVMain);
+            SVMain.setPadding(0, statusBarHeight, 0, 0);
+        }
+    }
+
+    private int convertDpToPixel ( float dp){
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return Math.round(px);
     }
 }

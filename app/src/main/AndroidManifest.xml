@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_book_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyLibrary" >
+        android:theme="@style/Theme.MyLibrary.NoActionBar" >
         <activity
             android:name=".WebViewActivity"
             android:label="Web View"
