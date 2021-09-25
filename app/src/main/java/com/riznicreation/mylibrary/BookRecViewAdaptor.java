@@ -46,6 +46,13 @@ public class BookRecViewAdaptor extends RecyclerView.Adapter<BookRecViewAdaptor.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Book book = books.get(position);
 
+        AlertDialog.Builder builder_test = new AlertDialog.Builder(mContext);
+                builder_test.setMessage(book.toString());
+                builder_test.setNegativeButton("Dismiss",(dialog, which) -> {});
+                builder_test.setPositiveButton("Visit",(dialog, which) -> {});
+                builder_test.setCancelable(false);
+      //   builder_test.create().show();
+
         holder.bookName.setText(book.getName());
         holder.shortDesc.setText(book.getShortDesc());
         holder.author.setText(book.getAuthor());

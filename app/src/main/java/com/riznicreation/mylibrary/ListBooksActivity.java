@@ -1,26 +1,33 @@
 package com.riznicreation.mylibrary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.widget.ListAdapter;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
+@SuppressWarnings("ALL")
 public class ListBooksActivity extends AppCompatActivity {
 
-    private RecyclerView rvBook;
-    private BookRecViewAdaptor adaptor;
+    private static RecyclerView rvBook;
+    private static BookRecViewAdaptor adaptor;
     private RelativeLayout RLMain;
+
+    private EditText txtSearch;
+    private Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,50 @@ public class ListBooksActivity extends AppCompatActivity {
 
         handleNotchScreen();
 
+
+
+        txtSearch = findViewById(R.id.txtSearch);
+        btnSearch = findViewById(R.id.btnSearch);
+
+        btnSearch.setOnClickListener(v -> searchBooks());
+
+    }
+
+    static void loadSearchBooks(Context context, ArrayList<Book> booksList){
+        adaptor = new BookRecViewAdaptor(context, "AllBooksActivity");
+        adaptor.setBooks(booksList);
+        rvBook.setAdapter(adaptor);
+        rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+
+    }
+
+    public void searchBooks() {
+        // Get the search string from the input field.
+        String queryString = txtSearch.getText().toString();
+
+        // Hide the keyboard when the button is pushed.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
+        // Check the status of the network connection.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
+        if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
+            new FetchBook(this).execute(queryString);
+        }
+        // Otherwise update the TextView to tell the user there is no connection or no search term.
+        else {
+            if (queryString.length() == 0) {
+                Toast.makeText(this, "No such term", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void handleNotchScreen() {

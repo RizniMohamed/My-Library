@@ -8,17 +8,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="Theme_BG">#8A1536</color>
-    <color name="Theme_FG">#DC1F54</color>
-    <color name="Theme_font_2">#000000</color>
-    <color name="Theme_font_1">#ffffff</color>
-    <color name="Theme_fab_BG">#808A1536</color>
+<!--    <color name="Theme_BG">#8A1536</color>-->
+<!--    <color name="Theme_FG">#DC1F54</color>-->
+<!--    <color name="Theme_font_2">#000000</color>-->
+<!--    <color name="Theme_font_1">#ffffff</color>-->
+<!--    <color name="Theme_fab_BG">#808A1536</color>-->
 
-    <!--    <color name="Theme_BG">#651FFF</color>-->
-    <!--    <color name="Theme_FG">#3D5AFE</color>-->
-    <!--    <color name="Theme_font_2">#000000</color>-->
-    <!--    <color name="Theme_font_1">#FFFFFF</color>-->
-    <!--    <color name="Theme_fab_BG">#80651FFF</color>-->
+        <color name="Theme_BG">#4F000000</color>
+        <color name="Theme_FG">#6A6A6A</color>
+        <color name="Theme_font_2">#000000</color>
+        <color name="Theme_font_1">#FFFFFF</color>
+        <color name="Theme_fab_BG">#80000000</color>
 
 
 </resources>

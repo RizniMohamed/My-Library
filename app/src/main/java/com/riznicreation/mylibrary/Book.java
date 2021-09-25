@@ -14,6 +14,17 @@ public class Book {
     private boolean isExpanded;
     private String buyLink;
 
+    public Book() {
+        this.id = 0;
+        this.name = "";
+        this.author = "";
+        this.pages = 0;
+        this.imgURL = "";
+        this.shortDesc = "";
+        LongDesc = "";
+        isExpanded = false;
+        this.buyLink = "";
+    }
 
     public Book(int id, String name, String author, int pages, String imgURL, String shortDesc, String longDesc, String buyLink) {
         this.id = id;
