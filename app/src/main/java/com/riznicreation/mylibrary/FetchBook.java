@@ -2,9 +2,7 @@ package com.riznicreation.mylibrary;
 
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,7 +19,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 /**
  * AsyncTask implementation that opens a network connection and
@@ -29,20 +26,16 @@ import java.util.Random;
  */
 public class FetchBook extends AsyncTask<String,Void,String>{
 
+    // Class name for Log tag
+    private static final String LOG_TAG = FetchBook.class.getSimpleName();
     /* Variables for the search input field, and results TextViews */
     @SuppressLint("StaticFieldLeak")
     private final Context context;
-    private ArrayList<Book> bookList = new ArrayList<>();
-    // Class name for Log tag
-    private static final String LOG_TAG = FetchBook.class.getSimpleName();
+    private final ArrayList<Book> bookList = new ArrayList<>();
 
     // Constructor providing a reference to the views in MainActivity
     public FetchBook(Context context) {
         this.context = context;
-    }
-
-    public ArrayList<Book> getBookList() {
-        return bookList;
     }
 
     /**
@@ -99,7 +92,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             while ((line = reader.readLine()) != null) {
                 // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                 // but it does make debugging a *lot* easier if you print out the completed buffer for debugging.
-                builder.append(line + "\n");
+                builder.append(line).append("\n");
             }
 
             if (builder.length() == 0) {
@@ -154,19 +147,19 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             int i = 0;
 
             String title = null;
-            String authors = null;
-            String BuyLink = null;
-            int id = 0;
-            int pageCount = 0;
-            String longDesc = null;
-            String shortDesc = null;
+            String authors = "";
+            String BuyLink;
+            int id;
+            int pageCount;
+            String longDesc;
+            String shortDesc;
             String imageURL = null;
 
-
+            StringBuilder categorires = new StringBuilder();
 
             // Look for results in the items array, exiting when both the title and author
             // are found or when all items have been checked.
-            while (i < itemsArray.length() || (authors == null && title == null)) {
+            while (i < itemsArray.length() || (authors.equals("") && title == null)) {
                 // Get the current item information.
                 JSONObject jsonBook = itemsArray.getJSONObject(i);
                 JSONObject volumeInfo = jsonBook.getJSONObject("volumeInfo");
@@ -176,27 +169,29 @@ public class FetchBook extends AsyncTask<String,Void,String>{
 
                 try {
                     title = volumeInfo.getString("title");
-                    authors = volumeInfo.getString("authors");
                     BuyLink = volumeInfo.getString("infoLink");
-                    id = (int) (System.nanoTime()/1000000000);
-
+                    id = (int) (System.nanoTime()/1000000000) + i;
                     longDesc = volumeInfo.getString("description");
                     pageCount = Integer.parseInt(volumeInfo.getString("pageCount"));
 
-                    shortDesc = "Author " + volumeInfo.getString("authors") + "\n" +
-                                "category " + volumeInfo.getString("categories") + "\n" +
-                                "publishedDate " + volumeInfo.getString("publishedDate");
 
                     JSONObject ImageInfo = volumeInfo.getJSONObject("imageLinks");
                     Iterator<String> keys = ImageInfo.keys();
-
                     while(keys.hasNext()) {
-                        String key = keys.next();
-                      //  if (ImageInfo.get(key) instanceof JSONObject) {
-                            imageURL = ImageInfo.getString(key);
-                     //   }
+                        imageURL = ImageInfo.getString(keys.next());
                     }
 
+                    JSONArray authorInfo = volumeInfo.getJSONArray("authors");
+                    for ( int j = 0; j < authorInfo.length(); j++){
+                        authors += " " + authorInfo.getString(j);
+                    }
+
+                    JSONArray catInfo = volumeInfo.getJSONArray("categories");
+                    for ( int j = 0; j < catInfo.length(); j++){
+                        categorires.append(" ").append(catInfo.getString(j));
+                    }
+                    shortDesc = "category " + categorires + "\n\n" +
+                            "published Date " + volumeInfo.getString("publishedDate");
 
 
                     Book book = new Book();
@@ -215,35 +210,12 @@ public class FetchBook extends AsyncTask<String,Void,String>{
                 }
 
                 // Move to the next item.
-
                 i++;
             }
 
             // If both are found, display the result.
-            if (title != null && authors != null){
-                Toast.makeText(context, title + "\n" + authors, Toast.LENGTH_SHORT).show();
-//
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                builder.setMessage(
-//                        "title" + " : " + title + "\n" +
-//                        "authors" + " : " + authors + "\n" +
-//                        "BuyLink" + " : " + BuyLink + "\n" +
-//                        "id" + " : " + id + "\n" +
-//                        "pageCount" + " : " + pageCount + "\n" +
-//                        "longDesc" + " : " + longDesc + "\n" +
-//                        "shortDesc" + " : " + shortDesc + "\n" +
-//                        "selfLink" + " : " + selfLink + "\n" +3
-//                        "imageURL" + " : " + imageURL
-//                );
-//                builder.setNegativeButton("Dismiss",(dialog, which) -> {});
-//                builder.setPositiveButton("Visit",(dialog, which) -> {});
-//                builder.setCancelable(false);
-               // builder.create().show();
-
-                Toast.makeText(context, bookList.get(0).getImgURL() , Toast.LENGTH_SHORT).show();
+            if (title != null && !authors.equals("")){
                 ListBooksActivity.loadSearchBooks(context,bookList);
-
             } else {
                 // If none are found, update the UI to show failed results.
                 Toast.makeText(context, "No results", Toast.LENGTH_SHORT).show();

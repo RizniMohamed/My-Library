@@ -1,5 +1,6 @@
 package com.riznicreation.mylibrary;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -28,6 +29,7 @@ public class ListBooksActivity extends AppCompatActivity {
 
     private EditText txtSearch;
     private Button btnSearch;
+    private static ProgressDialog prgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,6 @@ public class ListBooksActivity extends AppCompatActivity {
 
         handleNotchScreen();
 
-
-
         txtSearch = findViewById(R.id.txtSearch);
         btnSearch = findViewById(R.id.btnSearch);
 
@@ -71,6 +71,8 @@ public class ListBooksActivity extends AppCompatActivity {
         adaptor.setBooks(booksList);
         rvBook.setAdapter(adaptor);
         rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        prgDialog.cancel();
+        DB_Book.getInstance(context).addTo_AllBooks(booksList);
 
     }
 
@@ -78,28 +80,30 @@ public class ListBooksActivity extends AppCompatActivity {
         // Get the search string from the input field.
         String queryString = txtSearch.getText().toString();
 
-        // Hide the keyboard when the button is pushed.
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+        if (!queryString.isEmpty()){
 
-        // Check the status of the network connection.
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            // Hide the keyboard when the button is pushed.
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-        // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
-        if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
-            new FetchBook(this).execute(queryString);
-        }
-        // Otherwise update the TextView to tell the user there is no connection or no search term.
-        else {
-            if (queryString.length() == 0) {
-                Toast.makeText(this, "No such term", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
+            // Check the status of the network connection.
+            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+            // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
+            if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
+                new FetchBook(this).execute(queryString);
+                prgDialog = ProgressDialog.show(this, "", "Loading. Please wait...", true);
             }
+            else {
+                if (queryString.length() == 0) {
+                    Toast.makeText(this, "No such term", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else{
+            Toast.makeText(this, "Enter book name", Toast.LENGTH_SHORT).show();
         }
     }
 

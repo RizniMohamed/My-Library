@@ -574,8 +574,28 @@ public class DB_Book {
     }
 
     public Book getBook(int id){
+
+
         ArrayList<Book> books = getAllBooks();
-        return books.get(id);
+        for ( Book b : books){
+            if (b.getId() == id){
+                return books.get(books.indexOf(b));
+            }
+        }
+        return null;
+    }
+
+    public boolean addTo_AllBooks(ArrayList<Book> book){
+        ArrayList<Book> books = getAllBooks();
+        if (books.addAll(book)){
+            Gson gson = new Gson();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove(ALL_BOOKS_KEY);
+            editor.putString(ALL_BOOKS_KEY,gson.toJson(books));
+            editor.apply();
+            return true;
+        }
+        return  false;
     }
 
     public boolean addTo_alreadyReadBooks(Book book){

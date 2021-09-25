@@ -46,13 +46,6 @@ public class BookRecViewAdaptor extends RecyclerView.Adapter<BookRecViewAdaptor.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Book book = books.get(position);
 
-        AlertDialog.Builder builder_test = new AlertDialog.Builder(mContext);
-                builder_test.setMessage(book.toString());
-                builder_test.setNegativeButton("Dismiss",(dialog, which) -> {});
-                builder_test.setPositiveButton("Visit",(dialog, which) -> {});
-                builder_test.setCancelable(false);
-      //   builder_test.create().show();
-
         holder.bookName.setText(book.getName());
         holder.shortDesc.setText(book.getShortDesc());
         holder.author.setText(book.getAuthor());
@@ -64,7 +57,7 @@ public class BookRecViewAdaptor extends RecyclerView.Adapter<BookRecViewAdaptor.
 
         holder.imgBook.setOnClickListener(v -> {
             Intent intent = new Intent(mContext,BookActivity.class);
-            intent.putExtra("bookID", book.getId()-1);
+            intent.putExtra("bookID", book.getId());
             mContext.startActivity(intent);
         });
 
@@ -103,8 +96,7 @@ public class BookRecViewAdaptor extends RecyclerView.Adapter<BookRecViewAdaptor.
                     Toast.makeText(mContext, "Book deleted successfully", Toast.LENGTH_SHORT).show();
                     notifyItemChanged(position);
                 });
-                builder.setNegativeButton("No", (dialog, which) -> {
-                });
+                builder.setNegativeButton("No", (dialog, which) -> { });
                 builder.create().show();
             });
         }

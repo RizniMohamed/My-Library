@@ -42,12 +42,18 @@ public class BookActivity extends AppCompatActivity{
         if(intent != null) {
             int bookID = intent.getIntExtra("bookID", -1);
             if(bookID != -1){
-                setData(DB_Book.getInstance(this).getBook(bookID));
-                handleAlreadyReadBook(DB_Book.getInstance(this).getBook(bookID));
-                handleCurrentlyReadingBook(DB_Book.getInstance(this).getBook(bookID));
-                handleWishlist(DB_Book.getInstance(this).getBook(bookID));
-                handleFavourite(DB_Book.getInstance(this).getBook(bookID));
-                handleBuyNow(DB_Book.getInstance(this).getBook(bookID));
+                Book book = DB_Book.getInstance(this).getBook(bookID);
+                if(book == null){
+                    Toast.makeText(this, "Null occurred", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+                    setData(DB_Book.getInstance(this).getBook(bookID));
+                    handleAlreadyReadBook(DB_Book.getInstance(this).getBook(bookID));
+                    handleCurrentlyReadingBook(DB_Book.getInstance(this).getBook(bookID));
+                    handleWishlist(DB_Book.getInstance(this).getBook(bookID));
+                    handleFavourite(DB_Book.getInstance(this).getBook(bookID));
+                    handleBuyNow(DB_Book.getInstance(this).getBook(bookID));
+                }
             }
         }
 
