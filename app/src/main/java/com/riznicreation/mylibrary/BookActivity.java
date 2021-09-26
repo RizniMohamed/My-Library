@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class BookActivity extends AppCompatActivity{
 
     private ImageView imgBook;
-    private TextView txtID, txtName, txtAuthor, txtPages, txtShortDesc, txtLongDesc;
+    private TextView txtID, txtName, txtAuthor, txtPages, txtLongDesc;
     private FloatingActionMenu faMenu;
     private FloatingActionButton btnCRBooks, btnWishlist, btnARBooks, btnFavourite;
     private Button buyNow;
@@ -60,7 +60,7 @@ public class BookActivity extends AppCompatActivity{
         AtomicBoolean fabexpanded = new AtomicBoolean(false);
         faMenu.setOnMenuToggleListener(v -> {
             if (!fabexpanded.get()) {
-                faMenu.setBackgroundColor(getResources().getColor(R.color.Theme_fab_BG));
+                faMenu.setBackgroundColor(ContextCompat.getColor(this,R.color.Theme_fab_BG));
                 fabexpanded.set(true);
             } else{
                 faMenu.setBackgroundColor(Color.TRANSPARENT);
@@ -184,7 +184,6 @@ public class BookActivity extends AppCompatActivity{
         txtName.setText(book.getName());
         txtPages.setText(String.valueOf(book.getPages()));
         txtAuthor.setText(book.getAuthor());
-        txtShortDesc.setText(book.getShortDesc());
         txtLongDesc.setText(book.getLongDesc());
     }
 
@@ -194,7 +193,6 @@ public class BookActivity extends AppCompatActivity{
         txtName = findViewById(R.id.txtName);
         txtAuthor = findViewById(R.id.txtAuthor);
         txtPages = findViewById(R.id.txtPages);
-        txtShortDesc = findViewById(R.id.txtShortDesc);
         txtLongDesc = findViewById(R.id.txtLongDesc);
         faMenu = findViewById(R.id.faMenu);
         btnCRBooks = findViewById(R.id.btnCRBooks);

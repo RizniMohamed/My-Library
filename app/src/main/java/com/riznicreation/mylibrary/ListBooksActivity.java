@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("ALL")
+
 public class ListBooksActivity extends AppCompatActivity {
 
     private static RecyclerView rvBook;
@@ -29,7 +29,8 @@ public class ListBooksActivity extends AppCompatActivity {
 
     private EditText txtSearch;
     private Button btnSearch;
-    private static ProgressDialog prgDialog;
+
+    static ProgressDialog prgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class ListBooksActivity extends AppCompatActivity {
 
         btnSearch.setOnClickListener(v -> searchBooks());
 
+
     }
 
     static void loadSearchBooks(Context context, ArrayList<Book> booksList){
@@ -72,8 +74,6 @@ public class ListBooksActivity extends AppCompatActivity {
         rvBook.setAdapter(adaptor);
         rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         prgDialog.cancel();
-        DB_Book.getInstance(context).addTo_AllBooks(booksList);
-
     }
 
     public void searchBooks() {
@@ -91,16 +91,11 @@ public class ListBooksActivity extends AppCompatActivity {
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
             // If the network is active and the search field is not empty, start a FetchBook AsyncTask.
-            if (networkInfo != null && networkInfo.isConnected() && queryString.length()!=0) {
+            if (networkInfo != null && networkInfo.isConnected()) {
                 new FetchBook(this).execute(queryString);
                 prgDialog = ProgressDialog.show(this, "", "Loading. Please wait...", true);
-            }
-            else {
-                if (queryString.length() == 0) {
-                    Toast.makeText(this, "No such term", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
             }
         }else{
             Toast.makeText(this, "Enter book name", Toast.LENGTH_SHORT).show();

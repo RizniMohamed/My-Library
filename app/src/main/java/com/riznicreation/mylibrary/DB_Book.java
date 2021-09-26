@@ -2,7 +2,6 @@ package com.riznicreation.mylibrary;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,11 +24,9 @@ public class DB_Book {
 
     private final SharedPreferences sharedPreferences;
 
-    private final Context context;
-
     private DB_Book(Context context) {
+
         sharedPreferences = context.getSharedPreferences("Book_Database",Context.MODE_PRIVATE);
-        this.context = context;
 
         if (getAllBooks() == null) {
             initData();
@@ -575,7 +572,6 @@ public class DB_Book {
 
     public Book getBook(int id){
 
-
         ArrayList<Book> books = getAllBooks();
         for ( Book b : books){
             if (b.getId() == id){
@@ -585,17 +581,26 @@ public class DB_Book {
         return null;
     }
 
-    public boolean addTo_AllBooks(ArrayList<Book> book){
+    public Book getBook(String author){
+
         ArrayList<Book> books = getAllBooks();
-        if (books.addAll(book)){
+        for ( Book b : books){
+            if (b.getAuthor().equals(author)){
+                return books.get(books.indexOf(b));
+            }
+        }
+        return null;
+    }
+
+    public void addTo_AllBooks(Book book){
+        ArrayList<Book> books = getAllBooks();
+        if (books.add(book)){
             Gson gson = new Gson();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove(ALL_BOOKS_KEY);
             editor.putString(ALL_BOOKS_KEY,gson.toJson(books));
             editor.apply();
-            return true;
         }
-        return  false;
     }
 
     public boolean addTo_alreadyReadBooks(Book book){

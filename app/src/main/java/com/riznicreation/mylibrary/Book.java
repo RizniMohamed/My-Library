@@ -106,6 +106,7 @@ public class Book {
 
     public void setBuyLink(String buyLink) { this.buyLink = buyLink; }
 
+    @NonNull
     @Override
     public String toString() {
         return "Book{" +

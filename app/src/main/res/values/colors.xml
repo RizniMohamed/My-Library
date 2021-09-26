@@ -15,7 +15,7 @@
 <!--    <color name="Theme_fab_BG">#808A1536</color>-->
 
         <color name="Theme_BG">#4F000000</color>
-        <color name="Theme_FG">#6A6A6A</color>
+        <color name="Theme_FG">#FFD740</color>
         <color name="Theme_font_2">#000000</color>
         <color name="Theme_font_1">#FFFFFF</color>
         <color name="Theme_fab_BG">#80000000</color>

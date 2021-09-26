@@ -146,7 +146,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             // Initialize iterator and results fields.
             int i = 0;
 
-            String title = null;
+            String title = "";
             String authors = "";
             String BuyLink;
             int id;
@@ -159,7 +159,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
 
             // Look for results in the items array, exiting when both the title and author
             // are found or when all items have been checked.
-            while (i < itemsArray.length() || (authors.equals("") && title == null)) {
+            while (i < itemsArray.length() || (authors.equals("") && title.equals(""))) {
                 // Get the current item information.
                 JSONObject jsonBook = itemsArray.getJSONObject(i);
                 JSONObject volumeInfo = jsonBook.getJSONObject("volumeInfo");
@@ -214,7 +214,7 @@ public class FetchBook extends AsyncTask<String,Void,String>{
             }
 
             // If both are found, display the result.
-            if (title != null && !authors.equals("")){
+            if (!title.equals("") && !authors.equals("")){
                 ListBooksActivity.loadSearchBooks(context,bookList);
             } else {
                 // If none are found, update the UI to show failed results.
@@ -224,7 +224,8 @@ public class FetchBook extends AsyncTask<String,Void,String>{
         } catch (Exception e){
             // If onPostExecute does not receive a proper JSON string,
             // update the UI to show failed results.
-            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No Such term", Toast.LENGTH_SHORT).show();
+            ListBooksActivity.prgDialog.cancel();
             e.printStackTrace();
         }
     }
