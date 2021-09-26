@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,11 +38,14 @@ public class ListBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_books);
 
+        txtSearch = findViewById(R.id.txtSearch);
+        btnSearch = findViewById(R.id.btnSearch);
+        rvBook = findViewById(R.id.rvBook);
+
         Intent intent = getIntent();
         String activityName = intent.getStringExtra("Activity");
 
         adaptor = new BookRecViewAdaptor(this, activityName);
-        rvBook = findViewById(R.id.rvBook);
 
 
         switch (activityName) {
@@ -54,18 +58,19 @@ public class ListBooksActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
         }
 
-        rvBook.setAdapter(adaptor);
 
+            if (activityName.equals("AllBooksActivity")){
+                btnSearch.setOnClickListener(v ->  searchBooks());
+            }else{
+                txtSearch.setVisibility(View.GONE);
+                btnSearch.setVisibility(View.GONE);
+                rvBook.setY(rvBook.getY()-140);
+            }
+
+        rvBook.setAdapter(adaptor);
         rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 
         handleNotchScreen();
-
-        txtSearch = findViewById(R.id.txtSearch);
-        btnSearch = findViewById(R.id.btnSearch);
-
-        btnSearch.setOnClickListener(v -> searchBooks());
-
-
     }
 
     static void loadSearchBooks(Context context, ArrayList<Book> booksList){

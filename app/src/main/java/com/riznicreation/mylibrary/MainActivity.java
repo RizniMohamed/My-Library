@@ -45,11 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
         btnAbout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("This the book library application. you can show details about books and get get link for buy it\n\n" +
-                    "This application is made by MN Rizni Mohamed who is the owner of RizniCreation");
+            builder.setMessage("This application created for book management. Currently users can find the books via google book api and get links to buy it\n\n" +
+                    "Version : 1.0\n" +
+                    "Mail    : mnriznimohamed@gmail.com");
             builder.setNegativeButton("Dismiss",(dialog, which) -> {});
-            builder.setPositiveButton("Visit",(dialog, which) -> {
-                startActivity(new Intent(this, WebViewActivity.class).putExtra("URL","https://www.google.com/"));
+            builder.setPositiveButton("Developer profile",(dialog, which) -> {
+                startActivity(new Intent(this, WebViewActivity.class).putExtra("URL","https://www.linkedin.com/in/rizni-mohamed-2316301b4/"));
             });
             builder.setCancelable(false);
             builder.create().show();

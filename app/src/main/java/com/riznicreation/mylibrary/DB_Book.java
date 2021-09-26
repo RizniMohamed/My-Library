@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class DB_Book {
     private static DB_Book instance;
@@ -581,11 +582,11 @@ public class DB_Book {
         return null;
     }
 
-    public Book getBook(String author){
+    public Book getBook(String name_or_author){
 
         ArrayList<Book> books = getAllBooks();
         for ( Book b : books){
-            if (b.getAuthor().equals(author)){
+            if (b.getAuthor().equals(name_or_author) || b.getName().equals(name_or_author) ){
                 return books.get(books.indexOf(b));
             }
         }
@@ -652,7 +653,7 @@ public class DB_Book {
             editor.apply();
             return true;
         }
-        return  false;
+        return false;
     }
 
     public void removeFrom_alreadyReadBooks(Book book){
@@ -666,21 +667,24 @@ public class DB_Book {
                     editor.putString(ALREADY_READ_BOOKS, gson.toJson(books));
                     editor.apply();
                 }
+                return;
             }
         }
     }
 
-    public void removeFrom_wishlist(Book book) {
+    public synchronized void removeFrom_wishlist(Book book) {
         ArrayList<Book> books = getWishListBooks();
-        for ( Book b : books) {
-            if (b.getId() == book.getId()) {
-                if (books.remove(b)) {
+
+        for (Book bk : books) {
+            if (bk.getId() == book.getId()) {
+                if (books.remove(bk)) {
                     Gson gson = new Gson();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.remove(WISHLIST_BOOKS);
                     editor.putString(WISHLIST_BOOKS, gson.toJson(books));
                     editor.apply();
                 }
+                return;
             }
         }
     }
@@ -696,6 +700,7 @@ public class DB_Book {
                     editor.putString(CURRENT_READING_BOOKS, gson.toJson(books));
                     editor.apply();
                 }
+                return;
             }
         }
     }
@@ -711,6 +716,7 @@ public class DB_Book {
                     editor.putString(FAVOURITE_BOOKS,gson.toJson(books));
                     editor.apply();
                 }
+                return;
             }
         }
     }

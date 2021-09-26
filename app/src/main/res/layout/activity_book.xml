@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="55dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -158,21 +159,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginBottom="20dp"
                 android:textColor="@color/Theme_font_1"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-            <Button
-                android:id="@+id/btnBuyNow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Buy Now"
-                android:backgroundTint="@color/Theme_FG"
-                android:textColor="@color/Theme_font_1"
-                android:textAllCaps="false"
-                app:layout_constraintTop_toBottomOf="@+id/txtLongDesc"  />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,11 +176,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu_labels_colorNormal="@color/Theme_FG"
-        app:menu_labels_textColor="@color/Theme_font_1"
+        app:menu_labels_textColor="@color/Theme_font_2"
         app:menu_openDirection="down"
         app:menu_showShadow="true"
-        fab:menu_colorNormal="@color/Theme_FG"
-        fab:menu_labels_colorPressed="#66FFFFFF">
+        fab:menu_colorNormal="@color/Theme_BG"
+        fab:menu_labels_colorPressed="#66FFFFFF"    >
+<!--        fab:menu_icon="@drawable/ic_delete"-->
+
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/btnCRBooks"
@@ -230,5 +222,17 @@
 
 
     </com.github.clans.fab.FloatingActionMenu>
+
+    <Button
+        android:id="@+id/btnBuyNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Theme_FG"
+        android:text="@string/buy_now"
+        android:textAllCaps="false"
+        android:textColor="@color/Theme_font_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,9 +44,8 @@ public class BookActivity extends AppCompatActivity{
             if(bookID != -1){
                 Book book = DB_Book.getInstance(this).getBook(bookID);
                 if(book == null){
-                    Toast.makeText(this, "Null occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Unable to retrieve the book", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
                     setData(DB_Book.getInstance(this).getBook(bookID));
                     handleAlreadyReadBook(DB_Book.getInstance(this).getBook(bookID));
                     handleCurrentlyReadingBook(DB_Book.getInstance(this).getBook(bookID));
