@@ -35,6 +35,10 @@ public class BookRecViewAdaptor extends RecyclerView.Adapter<BookRecViewAdaptor.
         this.books = books;
     }
 
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

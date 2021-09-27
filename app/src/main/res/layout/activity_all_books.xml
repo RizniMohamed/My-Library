@@ -58,12 +58,32 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBook"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/LLSearch"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="-4dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp" />
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/imgNoResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/empty" />
+
+        <TextView
+            android:layout_below="@+id/imgNoResults"
+            android:id="@+id/lblNoResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="No results">
+
+        </TextView>
+
+
 
 </RelativeLayout>

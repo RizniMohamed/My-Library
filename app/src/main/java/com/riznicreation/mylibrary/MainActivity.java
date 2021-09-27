@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnAbout.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("This application created for book management. Currently users can find the books via google book api and get links to buy it\n\n" +
+            builder.setMessage("This application created for buy books. Currently users can find the books via google book api and get links to buy it\n\n" +
                     "Version : 1.0\n" +
                     "Mail    : mnriznimohamed@gmail.com");
             builder.setNegativeButton("Dismiss",(dialog, which) -> {});

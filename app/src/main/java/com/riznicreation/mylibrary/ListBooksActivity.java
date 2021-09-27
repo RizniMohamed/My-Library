@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
+
+import pl.droidsonroids.gif.GifImageView;
 
 
 public class ListBooksActivity extends AppCompatActivity {
@@ -33,6 +36,9 @@ public class ListBooksActivity extends AppCompatActivity {
 
     static ProgressDialog prgDialog;
 
+    private static TextView lblNoResults;
+    private static GifImageView ImgNoResults;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +47,13 @@ public class ListBooksActivity extends AppCompatActivity {
         txtSearch = findViewById(R.id.txtSearch);
         btnSearch = findViewById(R.id.btnSearch);
         rvBook = findViewById(R.id.rvBook);
+        lblNoResults = findViewById(R.id.lblNoResults);
+        ImgNoResults = findViewById(R.id.imgNoResults);
 
         Intent intent = getIntent();
         String activityName = intent.getStringExtra("Activity");
 
         adaptor = new BookRecViewAdaptor(this, activityName);
-
 
         switch (activityName) {
             case "AllBooksActivity": adaptor.setBooks(DB_Book.getInstance(this).getAllBooks()); break;
@@ -58,26 +65,37 @@ public class ListBooksActivity extends AppCompatActivity {
                 Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
         }
 
+        if (activityName.equals("AllBooksActivity")){
+            btnSearch.setOnClickListener(v ->  searchBooks());
+        }else{
+            txtSearch.setVisibility(View.GONE);
+            btnSearch.setVisibility(View.GONE);
+            rvBook.setY(rvBook.getY()-140);
+        }
 
-            if (activityName.equals("AllBooksActivity")){
-                btnSearch.setOnClickListener(v ->  searchBooks());
-            }else{
-                txtSearch.setVisibility(View.GONE);
-                btnSearch.setVisibility(View.GONE);
-                rvBook.setY(rvBook.getY()-140);
-            }
+
+
+        handleNotchScreen();
+        displayBooks();
+    }
+
+    private static void displayBooks(){
+        if(adaptor.getBooks().isEmpty()){
+            lblNoResults.setVisibility(View.VISIBLE);
+            ImgNoResults.setVisibility(View.VISIBLE);
+        }else{
+            lblNoResults.setVisibility(View.GONE);
+            ImgNoResults.setVisibility(View.GONE);
+        }
 
         rvBook.setAdapter(adaptor);
         rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-
-        handleNotchScreen();
     }
 
     static void loadSearchBooks(Context context, ArrayList<Book> booksList){
         adaptor = new BookRecViewAdaptor(context, "AllBooksActivity");
         adaptor.setBooks(booksList);
-        rvBook.setAdapter(adaptor);
-        rvBook.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        displayBooks();
         prgDialog.cancel();
     }
 

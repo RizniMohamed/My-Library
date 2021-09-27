@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">MyLibrary</string>
-    <string name="my_library">My Library</string>
+    <string name="app_name">Book Store</string>
     <string name="txtlicence">Developed by Rizni riznicreation.com</string>
     <string name="all_books">All Books</string>
     <string name="currently_reading_books">Currently Reading Books</string>
