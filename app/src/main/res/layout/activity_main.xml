@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/Theme_FG"
-                    android:text="@string/all_books"
+                    android:text="@string/search_books"
                     android:textAllCaps="false"
                     android:textColor="@color/Theme_font_2"
                     app:layout_constraintEnd_toEndOf="parent"

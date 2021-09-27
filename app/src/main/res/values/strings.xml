@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Book Store</string>
     <string name="txtlicence">Developed by Rizni riznicreation.com</string>
-    <string name="all_books">All Books</string>
+    <string name="search_books">Search Books</string>
     <string name="currently_reading_books">Currently Reading Books</string>
     <string name="already_read_books">Already Read Books</string>
     <string name="wishlist">Wishlist</string>
